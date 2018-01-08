@@ -5,20 +5,29 @@
 	<meta charset="utf-8">
 	<title>My Miniblog</title>
     <link rel="stylesheet" href="../static/style.css">
-    <meta name="viewport" content="width=device-width">
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">     <meta name="viewport" content="width=device-width">
 	<link rel="shortcut icon" href="../static/favicon.ico">
 </head>
 <body>
+    <header>
+        <span class="top">Hi, I'm William</span>.
+        <br>
+        <span class="bottom">I code. I talk about it, sometimes.</span>
+    </header>
+    <main class="textzone">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        {% block content %}
+        <p>Content to be displayed</p>
+        {% endblock content %}
+    </main>
+
     <nav>
-        <a href="/home">Home</a>
-        <a href="/about">About</a>
-        <a href="/contact">Contact</a>
+        <ul>
+            <li><a href="/home">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/contact">Contact</a></li>
+        </ul>
     </nav>
 
-	<div class="textzone">
-		{% block content %}
-		<p>Content to be displayed</p>
-		{% endblock content %}
-    </div>
 </body>
 </html>
