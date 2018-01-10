@@ -1,5 +1,9 @@
-from flask import Flask, render_template, url_for   
+from flask import Flask, render_template, url_for, redirect  
 from flask_sqlalchemy import SQLAlchemy
+
+from flask_admin import Admin
+from flask_admin.contrib.sqla import ModelView
+
 from datetime import datetime
 from getpass import getpass
 from blog_config import *
@@ -30,6 +34,9 @@ class Post(db.Model):
     def __repr__(self):
         return '<Post %r>' % self.title
 
+admin = Admin(app, name='smallblog', template_mode='bootstrap3')
+admin.add_view(ModelView(Post, db.session))
+
 def create_admin():
     username = input("Admin username: ")
     password = getpass("Admin password: ")
@@ -39,30 +46,41 @@ def create_admin():
     db.session.commit()
 
 db.create_all()
-create_admin()
+# create_admin()
+
+@app.route("/")
+def home():
+    return render_template('posts.html', posts=Post.query.all())
 
 @app.route("/users")
-def get_users():
+def users():
     return render_template('list_users.html', users=User.query.all()) #.all()
 
-@app.route("/home")
-def get_home():
-    return render_template('empty_template.html')
-
 @app.route("/login")
-def get_login_page():
+def login():
     return render_template('login.html')
 
 @app.route("/verify_login")
-def login():
+def verify_login():
     form = UsernamePasswordForm()
     if form.validate_on_submit():
         # Check the password and log the user in
         # [...]
         User.query.filter_by(username=form.username).first()
 
-        return redirect(url_for('/home'))
+        return redirect(url_for('home'))
     return render_template('login.html', form=form)
 
-print(User.query.filter_by(username='a').first())
+@app.route("/contact")
+def contact():
+    raise NotImplementedError("TODO")
+
+@app.route("/about")
+def about():
+    raise NotImplementedError("TODO")
+
+@app.route("/test")
+def test():
+    return render_template('test_responsive.html')
+
 app.run(port=8000)

@@ -1,8 +1,17 @@
+/* COLOURS
+    * primary: white (#ffffff)
+    * shades of grey: 
+        * emphasise: #3e4349
+        * less emphasis: #aaaaab
+    * call to action: 
+ */
+
 body {
     width: 960px;
     margin: 0 auto;
     padding: 40px 20px 0;
     font-family: 'Raleway', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 20px;
     color: #3e4349  ;
 }
 
@@ -31,27 +40,44 @@ main {
 }
 nav {
     position: fixed;
-    top: 190px;
+    top: 222px;
     width: 250px;
-    line-height: 28px;
+    line-height: 52px;
     text-align: right;
     font-family: 'Raleway Medium', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-size: 40px;
     color: #aaaaab;
 } 
-
-nav ul {
-    list-style-type: none;
-}
-nav li {
-    padding: 10px;
-}
-
 nav a:link {
     text-decoration: none;
     color: #aaaaab;
+    display: block;
 }
-nav a:visited {
+/* TODO doesn't seem to work */
+/* nav a:visited {
     text-decoration: none;
-    color: #3a3a3c
+    color: #3a3a3c;
+} */
+
+.post-title {
+    font-size: 30px;
+    color: #aaaaab;
+}
+
+@media(max-width:960px) and (min-width:690px) {
+    body {
+        width: auto;
+    }
+
+}
+@media(max-width:690px) {
+    body {
+        width: auto;
+    }
+    nav { /*TODO Should become a one-row*/
+        position: static;
+    }
+    nav a:link {
+        display: inline;
+    }
 }
