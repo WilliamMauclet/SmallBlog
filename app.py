@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, redirect  
+from flask import Flask, render_template, url_for, redirect
 from flask_sqlalchemy import SQLAlchemy
 
 from flask_admin import Admin
@@ -9,11 +9,11 @@ from getpass import getpass
 from blog_config import *
 from forms import *
 
-
 app = Flask(__name__)
 app.config.from_object('config')
 app.config.from_pyfile('config.py')
 db = SQLAlchemy(app)
+
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -23,6 +23,7 @@ class User(db.Model):
 
     def __repr__(self):
         return '<User %r>' % self.username
+
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -34,8 +35,10 @@ class Post(db.Model):
     def __repr__(self):
         return '<Post %r>' % self.title
 
+
 admin = Admin(app, name='smallblog', template_mode='bootstrap3')
 admin.add_view(ModelView(Post, db.session))
+
 
 def create_admin():
     username = input("Admin username: ")
@@ -45,20 +48,26 @@ def create_admin():
     db.session.add(admin)
     db.session.commit()
 
+
 db.create_all()
+
+
 # create_admin()
 
 @app.route("/")
 def home():
     return render_template('posts.html', posts=Post.query.all())
 
+
 @app.route("/users")
 def users():
-    return render_template('list_users.html', users=User.query.all()) #.all()
+    return render_template('list_users.html', users=User.query.all())  # .all()
+
 
 @app.route("/login")
 def login():
     return render_template('login.html')
+
 
 @app.route("/verify_login")
 def verify_login():
@@ -71,16 +80,20 @@ def verify_login():
         return redirect(url_for('home'))
     return render_template('login.html', form=form)
 
+
 @app.route("/contact")
 def contact():
     raise NotImplementedError("TODO")
+
 
 @app.route("/about")
 def about():
     raise NotImplementedError("TODO")
 
+
 @app.route("/test")
 def test():
     return render_template('test_responsive.html')
+
 
 app.run(port=8000)

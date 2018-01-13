@@ -17,17 +17,20 @@ I would like my blog's looks to be inspired by the following two:
 * Flask-Markdown?
 
 ## BTW
-* To make pipenv work best in VSCode, change the python.pythonPath in the user settings to the path returned by "which python" from the pipenv shell.
+* Windows: set terminal to git bash terminal with setting: "terminal.integrated.shell.windows": "C:\\Program Files\\Git\\bin\\bash.exe"
+* To make pipenv work best in VSCode, change the python.pythonPath in the user settings to the path returned by "which python" from the pipenv shell. Restart to select the Python environment.
 * To debug: it's the open file that will be debugged. To get input to work, add the field <<"console": "integratedTerminal">> to the launch.json of python under <<"name":"python">>.
 
 ## TODO
 * Responsive design
     * @media min-width max-width => redefine 960!
-    * <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    * \<meta name="viewport" content="width=device-width, initial-scale=1.0">
 * Admin pages
+    * https://github.com/flask-admin/flask-admin/tree/master/examples/auth-flask-login
     * Some text in admin home
     * Login/authentication
 * About me
 * Posts in markdown?
 * "Contact" page consists of key-value pairs
 * Posts can contain images
+* https://www.quora.com/How-do-I-divide-a-flask-app-into-multiple-files
