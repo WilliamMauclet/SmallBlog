@@ -20,6 +20,8 @@ I would like my blog's looks to be inspired by the following two:
 * Windows: set terminal to git bash terminal with setting: "terminal.integrated.shell.windows": "C:\\Program Files\\Git\\bin\\bash.exe"
 * To make pipenv work best in VSCode, change the python.pythonPath in the user settings to the path returned by "which python" from the pipenv shell. Restart to select the Python environment.
 * To debug: it's the open file that will be debugged. To get input to work, add the field <<"console": "integratedTerminal">> to the launch.json of python under <<"name":"python">>.
+* JetBrains IDEs: set terminal to "C:\Program Files\Git\bin\sh.exe" --login -i 
+* About hashing passwords: https://www.reddit.com/r/flask/comments/32iuyl/hashing_passwords_not_matching/cqc4ikp/
 
 ## TODO
 * Responsive design
@@ -29,6 +31,7 @@ I would like my blog's looks to be inspired by the following two:
     * https://github.com/flask-admin/flask-admin/tree/master/examples/auth-flask-login
     * Some text in admin home
     * Login/authentication
+    * Allow images: https://flask-admin.readthedocs.io/en/latest/advanced/
 * About me
 * Posts in markdown?
 * "Contact" page consists of key-value pairs

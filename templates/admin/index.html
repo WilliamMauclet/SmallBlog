@@ -1,0 +1,22 @@
+{% extends 'admin/master.html' %}
+
+{% block body %}
+{% if current_user.is_authenticated %}
+<p>Hello world</p>
+{% else %}
+<!--login page-->
+{% if form.errors %}
+<ul>
+    {% for e in form.errors %}
+    <li>{{ e }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+<form method="POST" action="">
+    {{ form.csrf_token }}
+    {{ form.username.label }} {{ form.username(size=20) }}
+    {{ form.password.label }} {{ form.password(size=20) }}
+    <input type="submit">
+</form>
+{% endif %}
+{% endblock %}

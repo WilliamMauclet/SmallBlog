@@ -1,13 +1,20 @@
-from flask import Flask, render_template, url_for, redirect
+from datetime import datetime
+
+from flask import Flask, render_template, url_for, request
 from flask_sqlalchemy import SQLAlchemy
 
-from flask_admin import Admin
+from flask_admin import Admin, AdminIndexView, expose, helpers
 from flask_admin.contrib.sqla import ModelView
 
-from datetime import datetime
-from getpass import getpass
-from blog_config import *
-from forms import *
+from flask_login import UserMixin, current_user, login_user, logout_user, LoginManager
+from werkzeug.security import check_password_hash, generate_password_hash
+from werkzeug.utils import redirect
+
+from flask_wtf import validators
+from wtforms import StringField, PasswordField, form
+from wtforms.validators import DataRequired
+
+from blog_config import MAX_POST_TITLE_LENGTH, MAX_USERNAME_LENGTH, MAX_PASSWORD_LENGTH
 
 app = Flask(__name__)
 app.config.from_object('config')
@@ -15,11 +22,17 @@ app.config.from_pyfile('config.py')
 db = SQLAlchemy(app)
 
 
-class User(db.Model):
+class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(MAX_USERNAME_LENGTH), unique=True, nullable=False)
-    password = db.Column(db.String(MAX_PASSWORD_LENGTH), unique=False, nullable=False)
-    email = db.Column(db.String(MAX_EMAIL_LENGTH), unique=True, nullable=False)
+    hashed_pw = db.Column(db.String(MAX_PASSWORD_LENGTH), unique=False, nullable=False)
+
+    def __init__(self, username, password):
+        self.username = username
+        self.hashed_pw = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.hashed_pw, password)
 
     def __repr__(self):
         return '<User %r>' % self.username
@@ -36,23 +49,59 @@ class Post(db.Model):
         return '<Post %r>' % self.title
 
 
-admin = Admin(app, name='smallblog', template_mode='bootstrap3')
-admin.add_view(ModelView(Post, db.session))
+# Define login and registration forms (for flask-login)
+class AdminLoginForm(form.Form):
+    username = StringField('Username', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired()])
+
+    # all functions with the name "validate_<something>" are tested by wtforms/form.py
+    def validate_password(self, field):
+        user = self.get_user()
+
+        if user is None or not user.check_password(self.password.data):
+            raise validators.ValidationError('Invalid user or password')
+
+    def get_user(self):
+        return db.session.query(User).filter_by(username=self.username.data).first()
 
 
-def create_admin():
-    username = input("Admin username: ")
-    password = getpass("Admin password: ")
-    email = input("Admin email: ")
-    admin = User(username=username, password=password, email=email)
-    db.session.add(admin)
-    db.session.commit()
+class PostModelView(ModelView):
+
+    def is_accessible(self):
+        return current_user.is_authenticated
+
+    def inaccessible_callback(self, name, **kwargs):
+        # redirect to login page if user doesn't have access
+        return redirect(url_for('login', next=request.url))
 
 
-db.create_all()
+# Create customized index view class that handles login & registration
+class MyAdminIndexView(AdminIndexView):
 
+    @expose('/')
+    def index(self):
+        if not current_user.is_authenticated:
+            return redirect(url_for('.login_view'))
+        return super(MyAdminIndexView, self).index()
 
-# create_admin()
+    @expose('/login/', methods=('GET', 'POST'))
+    def login_view(self):
+        # handle user login
+        form = AdminLoginForm(request.form)
+        if helpers.validate_form_on_submit(form):
+            user = form.get_user()
+            login_user(user)
+
+        if current_user.is_authenticated:
+            return redirect(url_for('.index'))
+        self._template_args['form'] = form
+        return super(MyAdminIndexView, self).index()
+
+    @expose('/logout/')
+    def logout_view(self):
+        logout_user()
+        return redirect(url_for('.index'))
+
 
 @app.route("/")
 def home():
@@ -62,23 +111,6 @@ def home():
 @app.route("/users")
 def users():
     return render_template('list_users.html', users=User.query.all())  # .all()
-
-
-@app.route("/login")
-def login():
-    return render_template('login.html')
-
-
-@app.route("/verify_login")
-def verify_login():
-    form = UsernamePasswordForm()
-    if form.validate_on_submit():
-        # Check the password and log the user in
-        # [...]
-        User.query.filter_by(username=form.username).first()
-
-        return redirect(url_for('home'))
-    return render_template('login.html', form=form)
 
 
 @app.route("/contact")
@@ -96,4 +128,38 @@ def test():
     return render_template('test_responsive.html')
 
 
+# Initialize flask-login
+def init_login():
+    login_manager = LoginManager()
+    login_manager.init_app(app)
+
+    # Create user loader function
+    @login_manager.user_loader
+    def load_user(user_id):
+        return db.session.query(User).get(user_id)
+
+
+def create_admin():
+    username = input("Admin username: ")
+    # password = getpass("Admin password: ")
+    password = input("Admin password: ")
+    administrator = User(username=username, password=password)
+    db.session.add(administrator)
+    db.session.commit()
+
+
+init_login()
+
+# create admin
+admin = Admin(app,
+              name='smallblog',
+              index_view=MyAdminIndexView(),
+              template_mode='bootstrap3',
+              base_template='admin/master.html')
+
+# add view for posts
+admin.add_view(ModelView(Post, db.session))
+
+db.create_all()
+create_admin()
 app.run(port=8000)
