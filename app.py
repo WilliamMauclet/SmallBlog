@@ -16,9 +16,6 @@ app = Flask(__name__)
 app.config.from_object('config')
 app.config.from_pyfile('config.py')
 db.init_app(app)
-ctx = app.app_context()
-ctx.push()
-db.create_all()
 
 
 # Define login and registration forms (for flask-login)
@@ -132,6 +129,9 @@ admin = Admin(app,
 # add view for posts
 admin.add_view(ModelView(Post, db.session))
 
-create_admin()
-ctx.pop()
+# init db
+with app.app_context():
+    db.create_all()
+    create_admin()
+
 app.run(port=8000)
