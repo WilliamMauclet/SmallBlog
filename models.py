@@ -34,3 +34,13 @@ class Post(db.Model):
 
     def __repr__(self):
         return '<Post %r>' % self.title
+
+
+class About(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    text = db.Column(db.Text, unique=True, nullable=False)
+    # Standard value = time of creation
+    date = db.Column(db.DateTime, default=datetime.utcnow)
+
+    def __repr__(self):
+        return '<About %r' % self.date.strftime('%Y-%m-%d %H:%M:%S')
