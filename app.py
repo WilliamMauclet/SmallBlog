@@ -32,6 +32,7 @@ def about():
     return render_template('about.html', about=About.query.order_by(About.date.desc()).first())
 
 
+# TODO: remove
 @app.route("/test")
 def test():
     return render_template('test_responsive.html')
@@ -62,6 +63,7 @@ with app.app_context():
     db.create_all()
     create_admin()
 
+# init login stuff
 init_login()
 
 # add view for posts

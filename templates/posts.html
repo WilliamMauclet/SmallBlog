@@ -5,12 +5,19 @@
 {% for post in posts %}
 <div>
     <span class="post-title"> {{post.title}} </span>
-    <br>
-    <div class="post-text">{{post.text}}</div>
-    <br>
+    <br/>
+    <br/>
+    <!--<div class="post-text">{{post.text}}</div>-->
+    <div class="post-text">
+    {% for line in post.text.splitlines() %}
+    {{line}}<br/>
+    {% endfor %}
+    </div>
+    <br/>
     <div class="post-date">Posted on: {{post.date}}</div>
 </div>
-<br>
+<br/>
+<br/>
 {% else %}
 <li>No users.</li>
 {% endfor %}
