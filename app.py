@@ -1,52 +1,24 @@
-from datetime import datetime
-
 from flask import Flask, render_template, url_for, request
-from flask_sqlalchemy import SQLAlchemy
 
 from flask_admin import Admin, AdminIndexView, expose, helpers
 from flask_admin.contrib.sqla import ModelView
 
-from flask_login import UserMixin, current_user, login_user, logout_user, LoginManager
-from werkzeug.security import check_password_hash, generate_password_hash
+from flask_login import current_user, login_user, logout_user, LoginManager
 from werkzeug.utils import redirect
 
 from flask_wtf import validators
 from wtforms import StringField, PasswordField, form
 from wtforms.validators import DataRequired
 
-from blog_config import MAX_POST_TITLE_LENGTH, MAX_USERNAME_LENGTH, MAX_PASSWORD_LENGTH
+from models import db, User, Post
 
 app = Flask(__name__)
 app.config.from_object('config')
 app.config.from_pyfile('config.py')
-db = SQLAlchemy(app)
-
-
-class User(db.Model, UserMixin):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(MAX_USERNAME_LENGTH), unique=True, nullable=False)
-    hashed_pw = db.Column(db.String(MAX_PASSWORD_LENGTH), unique=False, nullable=False)
-
-    def __init__(self, username, password):
-        self.username = username
-        self.hashed_pw = generate_password_hash(password)
-
-    def check_password(self, password):
-        return check_password_hash(self.hashed_pw, password)
-
-    def __repr__(self):
-        return '<User %r>' % self.username
-
-
-class Post(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(MAX_POST_TITLE_LENGTH), unique=True, nullable=False)
-    text = db.Column(db.Text, unique=True, nullable=False)
-    # Standard value = time of creation
-    date = db.Column(db.DateTime, default=datetime.utcnow)
-
-    def __repr__(self):
-        return '<Post %r>' % self.title
+db.init_app(app)
+ctx = app.app_context()
+ctx.push()
+db.create_all()
 
 
 # Define login and registration forms (for flask-login)
@@ -141,7 +113,7 @@ def init_login():
 
 def create_admin():
     username = input("Admin username: ")
-    # password = getpass("Admin password: ")
+    # password = getpass("Admin password: ") PYCHARM PROBLEM
     password = input("Admin password: ")
     administrator = User(username=username, password=password)
     db.session.add(administrator)
@@ -160,6 +132,6 @@ admin = Admin(app,
 # add view for posts
 admin.add_view(ModelView(Post, db.session))
 
-db.create_all()
 create_admin()
+ctx.pop()
 app.run(port=8000)
