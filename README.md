@@ -33,7 +33,6 @@ I would like my blog's looks to be inspired by the following two:
     * Login/authentication
     * Allow images: https://flask-admin.readthedocs.io/en/latest/advanced/
 * Posts and About in markdown? => flask-markdown
-* "Contact" page consists of key-value pairs
 * Posts can contain images
 * Posts should only show title and abstract in the overview page. To read the rest, you need to click on title/"read more"
 * Click on Post title => go to Post page

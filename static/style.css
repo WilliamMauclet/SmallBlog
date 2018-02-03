@@ -76,6 +76,7 @@ body .contact-info-key {
 body .contact-info-value {
     float: left;
     margin-left: 15%;
+    color: #aaaaab;
 }
 
 @media(max-width:960px) and (min-width:690px) {

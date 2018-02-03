@@ -7,12 +7,7 @@
     <span class="post-title"> {{post.title}} </span>
     <br/>
     <br/>
-    <!--<div class="post-text">{{post.text}}</div>-->
-    <div class="post-text">
-    {% for line in post.text.splitlines() %}
-    {{line}}<br/>
-    {% endfor %}
-    </div>
+    <div class="post-text">{{post.md_text}}</div>
     <br/>
     <div class="post-date">Posted on: {{post.date}}</div>
 </div>
@@ -21,5 +16,5 @@
 {% else %}
 Nothing was found, sorry! :'(
 {% endfor %}
-    
+
 {% endblock content %}

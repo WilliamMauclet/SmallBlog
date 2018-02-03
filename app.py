@@ -1,6 +1,9 @@
 from flask import Flask, render_template
-from flask_admin.contrib.sqla import ModelView
-from flask_login import LoginManager
+from flask_login import LoginManager, current_user
+
+import markdown
+from flask import Markup
+from mdx_gfm import GithubFlavoredMarkdownExtension
 
 from models import db, User, Post, About, ContactInfo
 from admin import admin
@@ -14,12 +17,17 @@ db.init_app(app)
 
 @app.route("/")
 def home():
-    return render_template('posts.html', posts=Post.query.all())
+    posts = Post.query.all()
+    for post in posts:
+        post.md_text = md_to_html(post.text)
+    return render_template('posts.html', posts=posts)
 
 
-@app.route("/users")
-def users():
-    return render_template('list_users.html', users=User.query.all())
+@app.route("/about")
+def about():
+    first = About.query.order_by(About.date.desc()).first()
+    first.text_md = md_to_html(first.text)
+    return render_template('about.html', about=first)
 
 
 @app.route("/contact")
@@ -27,9 +35,16 @@ def contact():
     return render_template('contact.html', contact_infos=ContactInfo.query.all())
 
 
-@app.route("/about")
-def about():
-    return render_template('about.html', about=About.query.order_by(About.date.desc()).first())
+# TODO remove
+@app.route("/users")
+def users():
+    if not current_user.is_authenticated:
+        return home()
+    return render_template('list_users.html', users=User.query.all())
+
+
+def md_to_html(text):
+    return Markup(markdown.markdown(text, extensions=[GithubFlavoredMarkdownExtension()]))
 
 
 # Initialize flask-login
