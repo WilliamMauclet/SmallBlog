@@ -10,7 +10,7 @@ from flask_wtf import validators
 from wtforms import StringField, PasswordField, form
 from wtforms.validators import DataRequired
 
-from models import db, User, Post
+from models import db, User, Post, ContactInfo, About
 
 
 # Define login and registration forms (for flask-login)
@@ -72,3 +72,8 @@ admin = Admin(name='smallblog',
               index_view=MyAdminIndexView(),
               template_mode='bootstrap3',
               base_template='admin/master.html')
+
+# add view for posts
+admin.add_view(ModelView(Post, db.session))
+admin.add_view(ModelView(About, db.session))
+admin.add_view(ModelView(ContactInfo, db.session))

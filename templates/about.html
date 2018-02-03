@@ -1,11 +1,15 @@
 {% extends "base.html" %}
 
 {% block content %}
+
 <h1>About Me</h1>
 
+{% if about %}
 <div class="post-text">{{about.text}}</div>
-
 <br>
-
 <div class="post-date">Last updated on: {{about.date}}</div>
+{% else %}
+Nothing was found, sorry! :'(
+{% endif%}
+
 {% endblock content %}}

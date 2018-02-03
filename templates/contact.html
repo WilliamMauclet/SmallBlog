@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Contact info</h1>
+
+{% for contact_info in contact_infos %}
+<div class="contact-info-key">{{contact_info.key}}</div> <div class="contact-info-value">{{contact_info.value}}</div>
+<br/>
+<br/>
+{% else %}
+Nothing was found, sorry! :'(
+{% endfor %}
+
+
+{% endblock content %}}

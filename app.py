@@ -2,7 +2,7 @@ from flask import Flask, render_template
 from flask_admin.contrib.sqla import ModelView
 from flask_login import LoginManager
 
-from models import db, User, Post, About
+from models import db, User, Post, About, ContactInfo
 from admin import admin
 
 app = Flask(__name__)
@@ -24,18 +24,12 @@ def users():
 
 @app.route("/contact")
 def contact():
-    raise NotImplementedError("TODO")
+    return render_template('contact.html', contact_infos=ContactInfo.query.all())
 
 
 @app.route("/about")
 def about():
     return render_template('about.html', about=About.query.order_by(About.date.desc()).first())
-
-
-# TODO: remove
-@app.route("/test")
-def test():
-    return render_template('test_responsive.html')
 
 
 # Initialize flask-login
@@ -65,9 +59,5 @@ with app.app_context():
 
 # init login stuff
 init_login()
-
-# add view for posts
-admin.add_view(ModelView(Post, db.session))
-admin.add_view(ModelView(About, db.session))
 
 app.run(port=8000)

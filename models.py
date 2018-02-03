@@ -2,6 +2,7 @@ from datetime import datetime
 
 from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import PickleType
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from blog_config import MAX_POST_TITLE_LENGTH, MAX_USERNAME_LENGTH, MAX_PASSWORD_LENGTH
@@ -44,3 +45,12 @@ class About(db.Model):
 
     def __repr__(self):
         return '<About %r' % self.date.strftime('%Y-%m-%d %H:%M:%S')
+
+
+class ContactInfo(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    key = db.Column(db.String, unique=True, nullable=False)
+    value = db.Column(db.String, unique=True, nullable=False)
+
+    def __repr__(self):
+        return '<ContactInfo>'
