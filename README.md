@@ -24,6 +24,8 @@ I would like my blog's looks to be inspired by the following two:
 * About hashing passwords: https://www.reddit.com/r/flask/comments/32iuyl/hashing_passwords_not_matching/cqc4ikp/
 
 ## TODO
+* Problem: db.Model objects don't like to get additional fields.
+* Click on Post title => go to Post page
 * Responsive design
     * @media min-width max-width => redefine 960!
     * \<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,9 +34,7 @@ I would like my blog's looks to be inspired by the following two:
     * Some text in admin home
     * Login/authentication
     * Allow images: https://flask-admin.readthedocs.io/en/latest/advanced/
-* Posts and About in markdown? => flask-markdown
 * Posts can contain images
 * Posts should only show title and abstract in the overview page. To read the rest, you need to click on title/"read more"
-* Click on Post title => go to Post page
 * http://flask.pocoo.org/docs/0.10/patterns/packages/
 * https://www.quora.com/How-do-I-divide-a-flask-app-into-multiple-files

@@ -17,7 +17,7 @@ db.init_app(app)
 
 @app.route("/")
 def home():
-    posts = Post.query.all()
+    posts = Post.query.order_by(Post.date.desc())
     for post in posts:
         post.md_text = md_to_html(post.text)
     return render_template('posts.html', posts=posts)
@@ -33,6 +33,13 @@ def about():
 @app.route("/contact")
 def contact():
     return render_template('contact.html', contact_infos=ContactInfo.query.all())
+
+
+@app.route("/post/<int:post_id>")
+def show_post():
+    # Post.query()
+    # return render_template('show_post')
+    return None
 
 
 # TODO remove

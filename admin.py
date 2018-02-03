@@ -1,4 +1,4 @@
-from flask import url_for, url_for, request
+from flask import url_for, url_for, request, flash, get_flashed_messages
 
 from flask_admin import Admin, AdminIndexView, expose, helpers
 from flask_login import current_user, login_user, logout_user
@@ -23,13 +23,14 @@ class AdminLoginForm(form.Form):
         user = self.get_user()
 
         if user is None or not user.check_password(self.password.data):
-            raise validators.ValidationError('Invalid user or password')
+            flash('Invalid user or password')
+            raise validators.ValidationError('Invalid user or ')
 
     def get_user(self):
         return db.session.query(User).filter_by(username=self.username.data).first()
 
 
-class PostModelView(ModelView):
+class AuthenticatedModelView(ModelView):
 
     def is_accessible(self):
         return current_user.is_authenticated
@@ -74,6 +75,6 @@ admin = Admin(name='smallblog',
               base_template='admin/master.html')
 
 # add view for posts
-admin.add_view(ModelView(Post, db.session))
-admin.add_view(ModelView(About, db.session))
-admin.add_view(ModelView(ContactInfo, db.session))
+admin.add_view(AuthenticatedModelView(Post, db.session))
+admin.add_view(AuthenticatedModelView(About, db.session))
+admin.add_view(AuthenticatedModelView(ContactInfo, db.session))
