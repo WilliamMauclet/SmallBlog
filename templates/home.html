@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% for post in posts %}
+<div>
+    <a href="{{ url_for('post', post_id=post.id) }}" class="post-title"> {{post.title}} </a>
+    <br/>
+    <div class="post-text">{{post.get_intro()}}</div>
+    <div class="post-date">Posted on: {{post.date}}</div>
+</div>
+<br/>
+<br/>
+{% else %}
+Nothing was found, sorry! :'(
+{% endfor %}
+
+{% endblock content %}

@@ -96,3 +96,8 @@ body .contact-info-value {
         display: inline;
     }
 }
+
+blockquote {
+    background-color: black;
+    color: white;
+}

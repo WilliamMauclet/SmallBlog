@@ -24,7 +24,7 @@ class AdminLoginForm(form.Form):
 
         if user is None or not user.check_password(self.password.data):
             flash('Invalid user or password')
-            raise validators.ValidationError('Invalid user or ')
+            raise validators.ValidationError()
 
     def get_user(self):
         return db.session.query(User).filter_by(username=self.username.data).first()

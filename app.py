@@ -1,10 +1,6 @@
 from flask import Flask, render_template
 from flask_login import LoginManager, current_user
 
-import markdown
-from flask import Markup
-from mdx_gfm import GithubFlavoredMarkdownExtension
-
 from models import db, User, Post, About, ContactInfo
 from admin import admin
 
@@ -17,17 +13,12 @@ db.init_app(app)
 
 @app.route("/")
 def home():
-    posts = Post.query.order_by(Post.date.desc())
-    for post in posts:
-        post.md_text = md_to_html(post.text)
-    return render_template('posts.html', posts=posts)
+    return render_template('home.html', posts=Post.query.order_by(Post.date.desc()))
 
 
 @app.route("/about")
 def about():
-    first = About.query.order_by(About.date.desc()).first()
-    first.text_md = md_to_html(first.text)
-    return render_template('about.html', about=first)
+    return render_template('about.html', about=About.query.order_by(About.date.desc()).first())
 
 
 @app.route("/contact")
@@ -36,10 +27,8 @@ def contact():
 
 
 @app.route("/post/<int:post_id>")
-def show_post():
-    # Post.query()
-    # return render_template('show_post')
-    return None
+def post(post_id):
+    return render_template('post.html', post=Post.query.get(post_id))
 
 
 # TODO remove
@@ -48,10 +37,6 @@ def users():
     if not current_user.is_authenticated:
         return home()
     return render_template('list_users.html', users=User.query.all())
-
-
-def md_to_html(text):
-    return Markup(markdown.markdown(text, extensions=[GithubFlavoredMarkdownExtension()]))
 
 
 # Initialize flask-login
@@ -67,7 +52,7 @@ def init_login():
 
 def create_admin():
     username = input("Admin username: ")
-    # password = getpass("Admin password: ") PYCHARM PROBLEM
+    # password = getpass("Admin password: ") # TODO PYCHARM PROBLEM
     password = input("Admin password: ")
     administrator = User(username=username, password=password)
     db.session.add(administrator)
@@ -77,9 +62,10 @@ def create_admin():
 # init db
 with app.app_context():
     db.create_all()
-    create_admin()
+    if input('Create a new admin? [y/n] ') == 'y':
+        create_admin()
 
 # init login stuff
 init_login()
 
-app.run(port=8000)
+app.run(port=5000)
