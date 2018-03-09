@@ -98,5 +98,6 @@ class ContactInfo(db.Model):
 def from_markdown(text):
     return Markup(markdown.markdown(text, extensions=[GithubFlavoredMarkdownExtension()]))
 
+
 def pretty_print_date(datetime):
     return datetime.strftime('%Y-%m-%d %H:%M')

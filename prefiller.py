@@ -55,6 +55,7 @@ def prefill_kalevala_post(db):
 
     db.session.add(Post('Kalevala', intro, text))
 
+
 def prefill_goingon_post(db):
     intro = '''This post will feature a long text just going on.'''
     text = '''  It is important to remember that the PDF format is not HTML and knows nothing of HTML tags. When a document is converted to PDF, each piece of the document needs to be converted to its corresponding PDF entity. Therefore, when you introduce non-standard raw HTML into your document, the converter can easily be confused.

@@ -24,7 +24,6 @@ I would like my blog's looks to be inspired by the following two:
 * About hashing passwords: https://www.reddit.com/r/flask/comments/32iuyl/hashing_passwords_not_matching/cqc4ikp/
 
 ## TODO
-* Call to pre-fill the blog in order to better see how it's looking.
 * Responsive design
     * @media min-width max-width => redefine 960!
     * \<meta name="viewport" content="width=device-width, initial-scale=1.0">
