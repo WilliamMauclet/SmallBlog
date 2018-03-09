@@ -7,7 +7,7 @@
 {% if about %}
 <div class="post-text">{{about.get_text()}}</div>
 <br>
-<div class="post-date">Last updated on: {{about.date}}</div>
+<div class="post-date">Last updated on: {{about.get_date()}}</div>
 {% else %}
 Nothing was found, sorry! :'(
 {% endif%}

@@ -28,18 +28,17 @@ I would like my blog's looks to be inspired by the following two:
 * Responsive design
     * @media min-width max-width => redefine 960!
     * \<meta name="viewport" content="width=device-width, initial-scale=1.0">
-* Admin pages
-    * https://github.com/flask-admin/flask-admin/tree/master/examples/auth-flask-login
-    * Some text in admin home
-    * Login/authentication
-    * Allow images: https://flask-admin.readthedocs.io/en/latest/advanced/
-* Posts can contain images
+* Posts can contain images: https://flask-admin.readthedocs.io/en/latest/advanced/
 * http://flask.pocoo.org/docs/0.10/patterns/packages/
 * https://www.quora.com/How-do-I-divide-a-flask-app-into-multiple-files
 
 ## DONE
 * Posts and About in markdown? => flask-markdown
 * "Contact" page consists of key-value pairs
+* Admin pages
+    * https://github.com/flask-admin/flask-admin/tree/master/examples/auth-flask-login
+    * Some text in admin home
+    * Login/authentication
 * Problem: db.Model objects don't like to get additional fields.
 * Click on Post title => go to Post page
 * Posts should only show title and abstract in the overview page. To read the rest, you need to click on title

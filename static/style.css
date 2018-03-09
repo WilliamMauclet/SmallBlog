@@ -62,6 +62,7 @@ nav a:link {
 .post-title {
     font-size: 30px;
     color: #aaaaab;
+    text-decoration: none;
 }
 
 .post-date {

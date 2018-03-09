@@ -1,8 +1,9 @@
 from flask import Flask, render_template
 from flask_login import LoginManager, current_user
 
-from models import db, User, Post, About, ContactInfo
 from admin import admin
+from models import db, User, Post, About, ContactInfo
+from prefiller import prefill
 
 app = Flask(__name__)
 app.config.from_object('config')
@@ -62,8 +63,10 @@ def create_admin():
 # init db
 with app.app_context():
     db.create_all()
-    if input('Create a new admin? [y/n] ') == 'y':
-        create_admin()
+    # if input('Create a new admin? [y/n] ') == 'y':
+    #     create_admin()
+    if input('Prefill blog? [y/n] ') == 'y':
+        prefill(db)
 
 # init login stuff
 init_login()
