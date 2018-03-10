@@ -5,8 +5,14 @@
 <h1>About Me</h1>
 
 {% if about %}
+
+{% if about.has_image() %}
+<img src={{about.get_image()}}>
+<br/>
+{% endif%}
+
 <div class="post-text">{{about.get_text()}}</div>
-<br>
+<br/>
 <div class="post-date">Last updated on: {{about.get_date()}}</div>
 {% else %}
 Nothing was found, sorry! :'(

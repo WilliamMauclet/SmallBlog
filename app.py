@@ -63,8 +63,6 @@ def create_admin():
 # init db
 with app.app_context():
     db.create_all()
-    # if input('Create a new admin? [y/n] ') == 'y':
-    #     create_admin()
     if input('Prefill blog? [y/n] ') == 'y':
         prefill(db)
 

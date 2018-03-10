@@ -1,16 +1,19 @@
-from flask import url_for, url_for, request, flash, get_flashed_messages
+from flask import url_for, request, flash, get_flashed_messages
 
 from flask_admin import Admin, AdminIndexView, expose, helpers
+from flask_admin.contrib.sqla import ModelView
+from flask_admin.contrib.fileadmin import FileAdmin
+
 from flask_login import current_user, login_user, logout_user
 from werkzeug.utils import redirect
-
-from flask_admin.contrib.sqla import ModelView
 
 from flask_wtf import validators
 from wtforms import StringField, PasswordField, form
 from wtforms.validators import DataRequired
 
 from models import db, User, Post, ContactInfo, About
+
+import os.path as op
 
 
 # Define login and registration forms (for flask-login)
@@ -78,3 +81,7 @@ admin = Admin(name='smallblog',
 admin.add_view(AuthenticatedModelView(Post, db.session))
 admin.add_view(AuthenticatedModelView(About, db.session))
 admin.add_view(AuthenticatedModelView(ContactInfo, db.session))
+
+# add static path
+path = op.join(op.dirname(__file__), 'static/added')
+admin.add_view(FileAdmin(path, '/static/added', name='Static Files'))

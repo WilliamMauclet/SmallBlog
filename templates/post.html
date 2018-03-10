@@ -5,6 +5,12 @@
 <div class="show-post">
     <span class="post-title"> {{post.title}} </span>
     <br/>
+
+	{% if post.has_image() %}
+    <img src="{{post.get_image()}}"> 
+    <br/>
+	{% endif %}
+	
     <div class="post-text">{{post.get_text()}}</div>
     <div class="post-date">Posted on: {{post.get_date()}}</div>
 </div>

@@ -1,6 +1,7 @@
 from datetime import datetime
 
 import markdown
+from flask import url_for
 from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
 from markupsafe import Markup
@@ -39,13 +40,15 @@ class Post(db.Model):
                       unique=True, nullable=False)
     intro = db.Column(db.String(MAX_POST_INTRO_LENGTH), nullable=False)
     text = db.Column(db.Text, unique=True, nullable=False)
+    image = db.Column(db.String)
     # Standard value = time of creation
     date = db.Column(db.DateTime, default=datetime.utcnow)
 
-    def __init__(self, title, intro, text):
+    def __init__(self, title='', intro='', text='', image=''):
         self.title = title
         self.intro = intro
         self.text = text
+        self.image = image
 
     def get_intro(self):
         return from_markdown(self.intro)
@@ -55,6 +58,12 @@ class Post(db.Model):
 
     def get_url(self):
         return redirect('/post/{}'.format(self.id))
+
+    def has_image(self):
+        return self.image != ''
+
+    def get_image(self):
+        return url_for('static', filename='added/'+self.image)
 
     def get_date(self):
         return pretty_print_date(self.date)
@@ -66,14 +75,22 @@ class Post(db.Model):
 class About(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     text = db.Column(db.Text, unique=True, nullable=False)
+    image = db.Column(db.String)
     # Standard value = time of creation
     date = db.Column(db.DateTime, default=datetime.utcnow)
 
-    def __init__(self, text):
+    def __init__(self, text='', image=''):
         self.text = text
+        self.image = image
 
     def get_text(self):
         return from_markdown(self.text)
+
+    def has_image(self):
+        return self.image != ''
+
+    def get_image(self):
+        return url_for('static', filename='added/'+self.image)
 
     def get_date(self):
         return pretty_print_date(self.date)
@@ -87,7 +104,7 @@ class ContactInfo(db.Model):
     key = db.Column(db.String, unique=True, nullable=False)
     value = db.Column(db.String, unique=True, nullable=False)
 
-    def __init__(self, key, value):
+    def __init__(self, key='', value=''):
         self.key = key
         self.value = value
 

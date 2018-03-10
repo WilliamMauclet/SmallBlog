@@ -53,7 +53,9 @@ def prefill_kalevala_post(db):
 	Songs of ancient wit and wisdom
 	Hasten from me not unwilling.'''
 
-    db.session.add(Post('Kalevala', intro, text))
+    image = 'AiguilleDuMidi.jpg'
+
+    db.session.add(Post('Kalevala', intro, text, image))
 
 
 def prefill_goingon_post(db):
