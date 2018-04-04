@@ -60,7 +60,7 @@ class Post(db.Model):
         return redirect('/post/{}'.format(self.id))
 
     def has_image(self):
-        return self.image != ''
+        return self.image != None
 
     def get_image(self):
         return url_for('static', filename='added/'+self.image)
@@ -87,7 +87,7 @@ class About(db.Model):
         return from_markdown(self.text)
 
     def has_image(self):
-        return self.image != ''
+        return self.image != None
 
     def get_image(self):
         return url_for('static', filename='added/'+self.image)

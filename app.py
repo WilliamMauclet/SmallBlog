@@ -14,22 +14,26 @@ db.init_app(app)
 
 @app.route("/")
 def home():
-    return render_template('home.html', posts=Post.query.order_by(Post.date.desc()))
+    posts = Post.query.order_by(Post.date.desc())
+    return render_template('home.html', posts=posts, context='home')
 
 
 @app.route("/about")
 def about():
-    return render_template('about.html', about=About.query.order_by(About.date.desc()).first())
+    about = About.query.order_by(About.date.desc()).first()
+    return render_template('about.html', about=about, context='about')
 
 
 @app.route("/contact")
 def contact():
-    return render_template('contact.html', contact_infos=ContactInfo.query.all())
+    contact_infos = ContactInfo.query.all()
+    return render_template('contact.html', contact_infos=contact_infos, context='contact')
 
 
 @app.route("/post/<int:post_id>")
 def post(post_id):
-    return render_template('post.html', post=Post.query.get(post_id))
+    post = Post.query.get(post_id)
+    return render_template('post.html', post=post, context='home')
 
 
 # TODO remove
@@ -53,20 +57,22 @@ def init_login():
 
 def create_admin():
     username = input("Admin username: ")
-    # password = getpass("Admin password: ") # TODO PYCHARM PROBLEM
-    password = input("Admin password: ")
+    password = getpass("Admin password: ") # TODO PYCHARM PROBLEM
+    # password = input("Admin password: ")
     administrator = User(username=username, password=password)
     db.session.add(administrator)
     db.session.commit()
 
 
-# init db
-with app.app_context():
-    db.create_all()
-    if input('Prefill blog? [y/n] ') == 'y':
-        prefill(db)
 
-# init login stuff
-init_login()
 
-app.run(port=5000)
+if __name__ == "__main__":
+    # init db
+    with app.app_context():
+        db.create_all()
+        if input('Prefill blog? [y/n] ') == 'y':
+            prefill(db)
+
+    # init login stuff
+    init_login()
+    app.run(port=5000)

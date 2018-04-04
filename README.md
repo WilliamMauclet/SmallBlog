@@ -24,14 +24,15 @@ I would like my blog's looks to be inspired by the following two:
 * About hashing passwords: https://www.reddit.com/r/flask/comments/32iuyl/hashing_passwords_not_matching/cqc4ikp/
 
 ## TODO
-* Tab you're in should be illuminated.
-** Also need to return context "about"/"home"/"contact" 
-** in base template condition on context to illuminate tab
+* Check CSS: http://templated.co/items/demos/retrospect/elements.html
 * Responsive design
 	* CSS grid
     * @media min-width max-width => redefine 960!
     * \<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+* Deployment: https://exploreflask.com/en/latest/deployment.html
+	* Use something else than sqlite
+	* Use Docker
+    
 ## DONE
 * Posts and About in markdown? => flask-markdown
 * "Contact" page consists of key-value pairs
@@ -45,5 +46,8 @@ I would like my blog's looks to be inspired by the following two:
 * Call to pre-fill the blog in order to better see how it's looking.
 * https://www.quora.com/How-do-I-divide-a-flask-app-into-multiple-files
 * Posts can contain images: https://flask-admin.readthedocs.io/en/latest/advanced/
-** Add image_name to Post class
-** from image_name you can make a url_for('static', filename='')
+	* Add image_name to Post class
+	* from image_name you can make a url_for('static', filename='')
+* Tab you're in should be illuminated.
+	* Also need to return context "about"/"home"/"contact" 
+	* in base template condition on context to illuminate tab

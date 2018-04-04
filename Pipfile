@@ -7,11 +7,12 @@ name = "pypi"
 
 [packages]
 
-Flask = "*"
-Flask-SQLAlchemy = "*"
-Flask-WTF = "*"
-Flask-Admin = "*"
+flask = "*"
+flask-sqlalchemy = "*"
+flask-wtf = "*"
+flask-admin = "*"
 py-gfm = "*"
+gunicorn = "*"
 
 
 [dev-packages]
