@@ -22,16 +22,22 @@ I would like my blog's looks to be inspired by the following two:
 * To debug: it's the open file that will be debugged. To get input to work, add the field <<"console": "integratedTerminal">> to the launch.json of python under <<"name":"python">>.
 * JetBrains IDEs: set terminal to "C:\Program Files\Git\bin\sh.exe" --login -i 
 * About hashing passwords: https://www.reddit.com/r/flask/comments/32iuyl/hashing_passwords_not_matching/cqc4ikp/
+* PyCharm problem: you can't use `getpass()` in its CLI
 
 ## TODO
+* Adding images in the middle of the post
+* Deployment: https://exploreflask.com/en/latest/deployment.html
+	* gunicorn(only works in Ubuntu subsystem)
+		* issue with filling db
+		* `if __name__ == '__main__'` must go for it to work
+	* Use MySQL instead of sqlite
+	* Use Docker
 * Check CSS: http://templated.co/items/demos/retrospect/elements.html
 * Responsive design
 	* CSS grid
     * @media min-width max-width => redefine 960!
-    * \<meta name="viewport" content="width=device-width, initial-scale=1.0">
-* Deployment: https://exploreflask.com/en/latest/deployment.html
-	* Use something else than sqlite
-	* Use Docker
+    * `<meta name="viewport" content="width=device-width, initial-scale=1.0">`
+
     
 ## DONE
 * Posts and About in markdown? => flask-markdown
@@ -47,7 +53,8 @@ I would like my blog's looks to be inspired by the following two:
 * https://www.quora.com/How-do-I-divide-a-flask-app-into-multiple-files
 * Posts can contain images: https://flask-admin.readthedocs.io/en/latest/advanced/
 	* Add image_name to Post class
-	* from image_name you can make a url_for('static', filename='')
+	* from image_name you can make a `url_for('static', filename='')`
 * Tab you're in should be illuminated.
 	* Also need to return context "about"/"home"/"contact" 
-	* in base template condition on context to illuminate tab
+	* in base template condition on context to illuminate tabultiple-files
+* You need to be logged in to add files before being logged in

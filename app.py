@@ -57,13 +57,10 @@ def init_login():
 
 def create_admin():
     username = input("Admin username: ")
-    password = getpass("Admin password: ") # TODO PYCHARM PROBLEM
-    # password = input("Admin password: ")
+    password = getpass("Admin password: ")
     administrator = User(username=username, password=password)
     db.session.add(administrator)
     db.session.commit()
-
-
 
 
 if __name__ == "__main__":

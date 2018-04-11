@@ -71,6 +71,11 @@ class MyAdminIndexView(AdminIndexView):
         return redirect(url_for('.index'))
 
 
+class FileAdminView(FileAdmin):
+    def is_accessible(self):
+        return current_user.is_authenticated
+
+
 # create admin
 admin = Admin(name='smallblog',
               index_view=MyAdminIndexView(),
@@ -84,4 +89,4 @@ admin.add_view(AuthenticatedModelView(ContactInfo, db.session))
 
 # add static path
 path = op.join(op.dirname(__file__), 'static/added')
-admin.add_view(FileAdmin(path, '/static/added', name='Static Files'))
+admin.add_view(FileAdminView(path, '/static/added', name='Static Files'))

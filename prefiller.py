@@ -7,6 +7,7 @@ def prefill(db):
     prefill_iliad_post(db)
     prefill_kalevala_post(db)
     prefill_goingon_post(db)
+    prefill_exampleimage_post(db)
 
     prefill_aboutme(db)
 
@@ -65,6 +66,16 @@ def prefill_goingon_post(db):
 Of course, how the converter works under the hood could have some effect on the output as well. For example, if the tool you are using converts the Markdown to HTML and then converts that HTML to PDF, then the raw HTML may have a better chance of being mapped properly. However, if the tool goes straight from a parse tree (list of tokens) to the output format, then it may not know anything about the raw HTML (unless it is also an HTML).'''
 
     db.session.add(Post('Going on', intro, text))
+
+
+def prefill_exampleimage_post(db):
+    intro = '''An example of how you can add an image anywhere in your post.'''
+    text = '''
+On olemassa monta eri versiota Lorem Ipsumin kappaleista, mutta suurin osa on kärsinyt muunnoksista joissain muodoissa, kuten huumorin tai sattumanvaraisesti asetetuin sanoin jotka eivät näytä edes vähän uskottavalta. Jos sinä aiot käyttää kappaletta Lorem Ipsumista, sinun pitää tarkistaa, ettei tekstin seassa ole mitään nolostuttavaa.
+	![test3](/static/added/pluto.jpg)
+	Kaikki Lorem Ipsum-generaattorit Internetissä tuntuvat toistavan ennalta määriteltyjä palasia tarpeen mukaan, tehden tästä ensimmäisen aidon generaattorin Internetissä. Se käyttää 200 latinalaisen sanan sanakirjaa, johon on yhdistetty kourallinen mallilauseiden rakenteita luoden Lorem Ipsumin, joka näyttää järjelliseltä. Generoitu Lorem Ipsum on siten aina vapaa toistoilta, huumorilta jne.'''
+
+    db.session.add(Post('Example image', intro, text))
 
 
 def prefill_aboutme(db):

@@ -40,7 +40,7 @@ class Post(db.Model):
                       unique=True, nullable=False)
     intro = db.Column(db.String(MAX_POST_INTRO_LENGTH), nullable=False)
     text = db.Column(db.Text, unique=True, nullable=False)
-    image = db.Column(db.String)
+    image = db.Column(db.String, default=None)  # TODO default=None ????
     # Standard value = time of creation
     date = db.Column(db.DateTime, default=datetime.utcnow)
 
