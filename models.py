@@ -40,11 +40,11 @@ class Post(db.Model):
                       unique=True, nullable=False)
     intro = db.Column(db.String(MAX_POST_INTRO_LENGTH), nullable=False)
     text = db.Column(db.Text, unique=True, nullable=False)
-    image = db.Column(db.String, default=None)  # TODO default=None ????
+    image = db.Column(db.String)
     # Standard value = time of creation
     date = db.Column(db.DateTime, default=datetime.utcnow)
 
-    def __init__(self, title='', intro='', text='', image=''):
+    def __init__(self, title='', intro='', text='', image=None):
         self.title = title
         self.intro = intro
         self.text = text
@@ -79,7 +79,7 @@ class About(db.Model):
     # Standard value = time of creation
     date = db.Column(db.DateTime, default=datetime.utcnow)
 
-    def __init__(self, text='', image=''):
+    def __init__(self, text='', image=None):
         self.text = text
         self.image = image
 
@@ -117,4 +117,4 @@ def from_markdown(text):
 
 
 def pretty_print_date(datetime):
-    return datetime.strftime('%Y-%m-%d %H:%M')
+    return datetime.strftime('%Y-%m-%d at %H:%M')

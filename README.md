@@ -25,7 +25,6 @@ I would like my blog's looks to be inspired by the following two:
 * PyCharm problem: you can't use `getpass()` in its CLI
 
 ## TODO
-* Adding images in the middle of the post
 * Deployment: https://exploreflask.com/en/latest/deployment.html
 	* gunicorn(only works in Ubuntu subsystem)
 		* issue with filling db
@@ -58,3 +57,4 @@ I would like my blog's looks to be inspired by the following two:
 	* Also need to return context "about"/"home"/"contact" 
 	* in base template condition on context to illuminate tabultiple-files
 * You need to be logged in to add files before being logged in
+* Adding images in the middle of the post
