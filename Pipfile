@@ -1,15 +1,20 @@
 [[source]]
+
 url = "https://pypi.python.org/simple"
 verify_ssl = true
 name = "pypi"
 
+
 [packages]
-flask = "*"
-flask-sqlalchemy = "*"
-flask-wtf = "*"
-flask-admin = "*"
+
+Flask = "*"
+Flask-SQLAlchemy = "*"
+Flask-WTF = "*"
+Flask-Admin = "*"
 py-gfm = "*"
 gunicorn = "*"
-flask-login = "*"
+Flask-Login = "*"
+
 
 [dev-packages]
+

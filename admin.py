@@ -43,7 +43,7 @@ class AuthenticatedModelView(ModelView):
         return redirect(url_for('login', next=request.url))
 
 
-# Create customized index view class that handles login & registration
+# Create customised index view class that handles login & registration
 class MyAdminIndexView(AdminIndexView):
 
     @expose('/')

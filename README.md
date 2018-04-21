@@ -58,3 +58,4 @@ I would like my blog's looks to be inspired by the following two:
 	* in base template condition on context to illuminate tabultiple-files
 * You need to be logged in to add files before being logged in
 * Adding images in the middle of the post
+* Deployment: separated command to fill db in separate module
