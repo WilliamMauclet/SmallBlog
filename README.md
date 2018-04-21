@@ -31,6 +31,7 @@ I would like my blog's looks to be inspired by the following two:
 		* `if __name__ == '__main__'` must go for it to work
 	* Use MySQL instead of sqlite
 	* Use Docker
+* Contact info: see personalPresentation.png
 * Check CSS: http://templated.co/items/demos/retrospect/elements.html
 * Responsive design
 	* CSS grid
