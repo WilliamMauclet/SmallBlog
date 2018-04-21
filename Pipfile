@@ -11,9 +11,9 @@ Flask = "*"
 Flask-SQLAlchemy = "*"
 Flask-WTF = "*"
 Flask-Admin = "*"
+Flask-Login = "*"
 py-gfm = "*"
 gunicorn = "*"
-Flask-Login = "*"
 
 
 [dev-packages]

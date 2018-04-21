@@ -37,7 +37,7 @@ I would like my blog's looks to be inspired by the following two:
 	* CSS grid
     * @media min-width max-width => redefine 960!
     * `<meta name="viewport" content="width=device-width, initial-scale=1.0">`
-
+* Login and password of admin must be removed from repo
     
 ## DONE
 * Posts and About in markdown? => flask-markdown
