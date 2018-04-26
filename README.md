@@ -31,6 +31,8 @@ I would like my blog's looks to be inspired by the following two:
 		* `if __name__ == '__main__'` must go for it to work
 	* Use MySQL instead of sqlite
 	* Use Docker
+	* let app start with password as CLI argument and put password in Dockerfile locally (not repo)
+	* when app starts => filling db must be optional!
 * Contact info: see personalPresentation.png
 * Check CSS: http://templated.co/items/demos/retrospect/elements.html
 * Responsive design
@@ -38,6 +40,7 @@ I would like my blog's looks to be inspired by the following two:
     * @media min-width max-width => redefine 960!
     * `<meta name="viewport" content="width=device-width, initial-scale=1.0">`
 * Login and password of admin must be removed from repo
+* colour: #009F5E > #00af89
     
 ## DONE
 * Posts and About in markdown? => flask-markdown

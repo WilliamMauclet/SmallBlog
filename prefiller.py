@@ -1,11 +1,11 @@
 from models import User, Post, About, ContactInfo
 
 from app import db, app
+import os
 
 
 def prefill(db):
     db.session.add_all((
-        default_admin(),
         iliad_post(),
         kalevala_post(),
         goingon_post(),
@@ -16,10 +16,6 @@ def prefill(db):
         phone_contactinfo()
     ))
     db.session.commit()
-
-
-def default_admin():
-    return User(username='admin', password='admin')
 
 
 def iliad_post():
