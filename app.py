@@ -46,17 +46,5 @@ def post(post_id):
     return render_template('post.html', post=post, context='home')
 
 
-def save_admin(password):
-    '''Load admin password from the environment variables.'''
-    if password == "$password$":
-        raise RuntimeError("Please set password.")
-
-    db.session.add(User(username='admin', password=password))
-    db.session.commit()
-
-
-import sys
 if __name__ == "__main__":
-    save_admin(sys.argv[0])
-
     app.run(host='0.0.0.0', port=80)

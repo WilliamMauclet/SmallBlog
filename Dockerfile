@@ -18,9 +18,9 @@ RUN apk add --no-cache python3 && \
 RUN git clone https://github.com/WilliamMauclet/SmallBlog.git
 RUN cd SmallBlog && pip3 install flask flask-sqlalchemy flask-wtf flask-admin py-gfm flask-login gunicorn
 
-CMD cd SmallBlog && python3 prefiller.py 
-
 # TODO replace $password$ here LOCALLY to pass to application
+CMD cd SmallBlog && python3 prefiller.py $password$
+
 CMD cd SmallBlog && python3 app.py ALABAMA
 
 # $ docker build . -t smallblog
