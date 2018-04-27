@@ -1,11 +1,13 @@
 from models import User, Post, About, ContactInfo
 
 from app import db, app
-import os, sys
+import os
+import sys
 
 
 def prefill(db):
     db.session.add_all((
+        admin(),
         iliad_post(),
         kalevala_post(),
         goingon_post(),
@@ -17,15 +19,15 @@ def prefill(db):
     ))
     db.session.commit()
 
+
 def admin():
-    password = sys.argv[0]
-    if password == "$password$":
+    username = 'admin'
+    password = sys.argv[1]
+    if password == ":password:":
         raise RuntimeError("Please set password in the Dockerfile!")
 
-    username = 'admin'
+    return User(username=username, password=password)
 
-    db.session.add(User(username=username, password=password))
-    db.session.commit()
 
 def iliad_post():
     intro = '''Sing, O goddess, the anger of Achilles son of Peleus, that brought countless ills upon the Achaeans.'''
