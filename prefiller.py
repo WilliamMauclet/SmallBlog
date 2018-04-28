@@ -1,6 +1,6 @@
 from models import User, Post, About, ContactInfo
 
-from app import db, app
+from smallblog import db, app
 import os
 import sys
 
