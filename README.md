@@ -26,20 +26,16 @@ I would like my blog's looks to be inspired by the following two:
 
 ## TODO
 * Deployment: https://exploreflask.com/en/latest/deployment.html
-	* gunicorn(only works in Ubuntu subsystem)
+	* __gunicorn__(doesn't work on windows)
 		* issue with filling db
 		* `if __name__ == '__main__'` must go for it to work
-	* Use MySQL instead of sqlite
-	* Use Docker
-	* let app start with password as CLI argument and put password in Dockerfile locally (not repo)
-	* when app starts => filling db must be optional!
+	* Use __MySQL__ instead of sqlite
 * Contact info: see personalPresentation.png
 * Check CSS: http://templated.co/items/demos/retrospect/elements.html
 * Responsive design
 	* CSS grid
     * @media min-width max-width => redefine 960!
     * `<meta name="viewport" content="width=device-width, initial-scale=1.0">`
-* Login and password of admin must be removed from repo
 * colour: #009F5E > #00af89
     
 ## DONE
@@ -63,3 +59,4 @@ I would like my blog's looks to be inspired by the following two:
 * You need to be logged in to add files before being logged in
 * Adding images in the middle of the post
 * Deployment: separated command to fill db in separate module
+* Deployment: works with docker + sqlite
