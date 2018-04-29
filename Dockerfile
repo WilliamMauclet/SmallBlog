@@ -21,6 +21,6 @@ RUN git clone https://github.com/WilliamMauclet/SmallBlog.git
 RUN cd /SmallBlog/ && pip3 install flask flask-sqlalchemy flask-wtf flask-admin py-gfm flask-login gunicorn
 
 # TODO replace $password$ here LOCALLY to pass to application
-CMD cd /SmallBlog/ && python3 prefiller.py hello && gunicorn smallblog:app -b 127.0.0.1:80
+CMD cd /SmallBlog/ && python3 prefiller.py hello && gunicorn smallblog:app -b 0.0.0.0:80
 # $ docker build . -t smallblog
 # $ docker run -p 80:80 smallblog

@@ -26,9 +26,7 @@ I would like my blog's looks to be inspired by the following two:
 
 ## TODO
 * Deployment: https://exploreflask.com/en/latest/deployment.html
-	* __gunicorn__(doesn't work on windows)
-		* issue with filling db
-		* `if __name__ == '__main__'` must go for it to work
+	* Use Nginx
 	* Use __MySQL__ instead of sqlite
 * Contact info: see personalPresentation.png
 * Check CSS: http://templated.co/items/demos/retrospect/elements.html
@@ -60,3 +58,4 @@ I would like my blog's looks to be inspired by the following two:
 * Adding images in the middle of the post
 * Deployment: separated command to fill db in separate module
 * Deployment: works with docker + sqlite
+* Deployment: gunicorn
